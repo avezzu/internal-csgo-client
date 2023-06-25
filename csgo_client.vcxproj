@@ -152,8 +152,13 @@
   <ItemGroup>
     <ClInclude Include="csgo.hpp" />
     <ClInclude Include="hook\fucntions.h" />
+    <ClInclude Include="Interface\cclientclass.h" />
+    <ClInclude Include="Interface\centity.h" />
+    <ClInclude Include="Interface\cutlvector.h" />
+    <ClInclude Include="Interface\datatable.h" />
     <ClInclude Include="Interface\EntityInterface.h" />
-    <ClInclude Include="framework.h" />
+    <ClInclude Include="netvar\netvar.h" />
+    <ClInclude Include="utils\framework.h" />
     <ClInclude Include="hook\hooks.h" />
     <ClInclude Include="imgui\imconfig.h" />
     <ClInclude Include="imgui\imgui.h" />
@@ -164,7 +169,9 @@
     <ClInclude Include="imgui\imstb_textedit.h" />
     <ClInclude Include="imgui\imstb_truetype.h" />
     <ClInclude Include="Interface\getInterface.h" />
+    <ClInclude Include="Interface\iglowmanager.h" />
     <ClInclude Include="Interface\interfaces.h" />
+    <ClInclude Include="Interface\ivengineclient.h" />
     <ClInclude Include="Interface\usercmd.h" />
     <ClInclude Include="minhook\buffer.h" />
     <ClInclude Include="GUI\gui.h" />
@@ -176,7 +183,8 @@
     <ClInclude Include="minhook\minhook.h" />
     <ClInclude Include="minhook\trampoline.h" />
     <ClInclude Include="move\move.h" />
-    <ClInclude Include="pch.h" />
+    <ClInclude Include="utils\hash.h" />
+    <ClInclude Include="utils\pch.h" />
     <ClInclude Include="vis\vis.h" />
   </ItemGroup>
   <ItemGroup>
@@ -198,13 +206,17 @@
     <ClCompile Include="minhook\hook.c" />
     <ClCompile Include="minhook\trampoline.c" />
     <ClCompile Include="move\move.cpp" />
-    <ClCompile Include="pch.cpp">
+    <ClCompile Include="netvar\netvar.cpp" />
+    <ClCompile Include="utils\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="vis\vis.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".gitignore" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

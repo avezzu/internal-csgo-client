@@ -34,7 +34,8 @@ void hooks::Setup()
 		throw std::runtime_error("Unable to hook CreateMove()");
 	}
 
-	/*if (MH_CreateHook(VirtualFunction(cm::g_ClientMode, 44), &cm::DoPostScreenSpaceEffects, (void**)(&cm::OriginalDoPostScreenSpaceEffects)))
+	/*
+	if (MH_CreateHook(VirtualFunction(interfaces::g_ClientMode, 44), &FN::DoPostScreenSpaceEffects, (void**)(&FN::OriginalDoPostScreenSpaceEffects)))
 	{
 		throw std::runtime_error("Unable to hook DoPostScreenSpaceEffects()");
 	}*/

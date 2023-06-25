@@ -180,10 +180,11 @@ void gui::Render()
 	ImGui_ImplDX9_NewFrame();
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
-
+	
 	ImGui::Begin("Menu", &open);
 	ImGui::Checkbox("AntiFlash", &vis::antiflash);
 	ImGui::Checkbox("Bhop", &move::bhop);
+	ImGui::Checkbox("Radar", &vis::enableRadar);
 	ImGui::End();
 
 	ImGui::EndFrame();

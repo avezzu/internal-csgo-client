@@ -1,7 +1,14 @@
-#include "pch.h"
+#include "utils/pch.h"
 
 DWORD WINAPI MainThread(HMODULE hModule) {
 
+    AllocConsole();
+    FILE* file;
+    freopen_s(&file, "CONOUT$", "w", stdout);
+
+    std::cout << "DLL injected!" << std::endl;
+
+    SetupNetvars(file);
 
     try
     {
@@ -20,13 +27,17 @@ DWORD WINAPI MainThread(HMODULE hModule) {
 
         goto UNLOAD;
     }
-    
+        
     while (!GetAsyncKeyState(VK_END))
     {
         if (vis::antiflash)vis::AntiFlash();
+        if (vis::enableRadar)vis::EnableRadar();
     }
     
 UNLOAD:
+    if (file)
+        fclose(file);
+    FreeConsole();
     hooks::Destroy();
     gui::Destroy();
     FreeLibraryAndExitThread(hModule, 0);

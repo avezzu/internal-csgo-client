@@ -19,6 +19,25 @@ bool __stdcall FN::CreateMove(float frameTime, UserCmd* cmd)
 
 void __stdcall FN::DoPostScreenSpaceEffects(const void* viewSetup)
 {
-	
+
+	/*
+	auto localPlayer = (interfaces::EntityList->GetClientEntity(1));
+	if (localPlayer && interfaces::engine->IsInGame())
+	{
+		for (int i = 0; i < interfaces::glow->glowObjects.size; i++)
+		{
+			IGlowManager::CGlowObject& glowObject = interfaces::glow->glowObjects[i];
+
+			if (glowObject.IsUnused())
+				continue;
+
+			if (!glowObject.entity)
+				continue;
+
+
+
+		}
+	}*/
+
 	OriginalDoPostScreenSpaceEffects(interfaces::g_ClientMode, viewSetup);
 }
