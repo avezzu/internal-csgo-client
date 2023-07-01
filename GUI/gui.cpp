@@ -1,6 +1,7 @@
 #include "gui.h"
 #include "../vis/vis.h"
 #include "../move/move.h"
+#include "../aim/aim.h"
 
 #include "../imgui/imgui.h"
 #include "../imgui/imgui_impl_win32.h"
@@ -182,9 +183,40 @@ void gui::Render()
 	ImGui::NewFrame();
 	
 	ImGui::Begin("Menu", &open);
-	ImGui::Checkbox("AntiFlash", &vis::antiflash);
-	ImGui::Checkbox("Bhop", &move::bhop);
-	ImGui::Checkbox("Radar", &vis::enableRadar);
+	ImGui::BeginTabBar("tabs");
+
+	if (ImGui::BeginTabItem("Aim")) {
+		ImGui::Checkbox("LegitTriggerBot", &aim::enableLegitTriggerBot);
+		ImGui::Checkbox("TriggerBot", &aim::enableTriggerBot);
+		ImGui::Checkbox("AimBot", &aim::enableAimBot);
+		ImGui::Checkbox("SilentAimBot", &aim::enableSilentAimBot);
+		ImGui::Checkbox("recoilControl", &aim::enableRC);
+		ImGui::EndTabItem();
+	}
+
+	if (ImGui::BeginTabItem("Movement")) {
+		ImGui::Checkbox("Bhop", &move::bhop);
+		ImGui::EndTabItem();
+	}
+
+	if (ImGui::BeginTabItem("Visuals")) {
+		ImGui::Checkbox("AntiFlash", &vis::antiflash);
+		ImGui::Checkbox("GlowESP", &vis::enableGlowESP);
+		ImGui::Checkbox("BoxESP", &vis::enableBoxESP);
+		ImGui::Checkbox("SkeletonESP", &vis::enableSkeletonESP);
+		ImGui::Checkbox("SnapLine", &vis::enableTraceLine);
+		ImGui::SliderInt("FOV", &vis::FOV, -180, 180);
+		ImGui::EndTabItem();
+	}
+
+	if (ImGui::BeginTabItem("Misc")) {
+		ImGui::Checkbox("Radar", &vis::enableRadar);
+		ImGui::Checkbox("SkinChanger", &vis::enableskinChanger);
+		ImGui::EndTabItem();
+	}
+
+
+	ImGui::EndTabBar();
 	ImGui::End();
 
 	ImGui::EndFrame();

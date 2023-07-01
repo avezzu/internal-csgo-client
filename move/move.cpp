@@ -4,11 +4,11 @@
 
 void move::enableBhop(UserCmd* cmd)
 {
-	
-	auto localPlayer = (interfaces::EntityList->GetClientEntity(1));
+	auto index = interfaces::engine->GetLocalPlayerIndex();
+	auto localPlayer = (interfaces::EntityList->GetClientEntity(index));
 	if (localPlayer)
 	{
-		if (!(*(int*)(localPlayer + hazedumper::netvars::m_fFlags) & 1))
+		if (!(localPlayer->GetFlags() & 1))
 		{
 			cmd->buttons &= ~IN_JUMP;
 		}

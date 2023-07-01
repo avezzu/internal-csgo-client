@@ -1,11 +1,9 @@
 #pragma once
+#include <cstdint>
 
-struct Vector
-{
-    float x, y, z;
-};
+#include "../utils/cvector.h"
 
-enum CommandButtons : int
+enum ECommandButton : std::int32_t
 {
     IN_ATTACK = (1 << 0),
     IN_JUMP = (1 << 1),
@@ -35,24 +33,25 @@ enum CommandButtons : int
     IN_MIDDLE_ATTACK = (1 << 25)
 };
 
-struct UserCmd
+class UserCmd
 {
+public:
     void* vmt;
-    int commandNumber;
-    int tickCount;
-    Vector viewPoint;
-    Vector aimDirection;
+    std::int32_t commandNumber;
+    std::int32_t tickCount;
+    CVector viewAngles;
+    CVector aimDirection;
     float forwardMove;
     float sideMove;
     float upMove;
-    int buttons;
+    std::int32_t buttons;
     char impulse;
-    int weaponSelect;
-    int weaponSubType;
-    int randomSeed;
+    std::int32_t weaponSelect;
+    std::int32_t weaponSubType;
+    std::int32_t randomSeed;
     short mouseDeltaX;
     short mouseDeltaY;
     bool hasBeenPredicted;
-    Vector headAngles;
-    Vector headOffset;
+    CVector headAngles;
+    CVector headOffset;
 };

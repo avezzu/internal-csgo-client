@@ -73,10 +73,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
+    <IncludePath>F:\DirectX\Include;$(IncludePath);$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>F:\DirectX\Lib\x86; $(LibraryPath);$(VC_LibraryPath_x86);</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(DXSDK_DIR)Include;</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86); $(DXSDK_DIR)Lib\x86;$(DXSDK_DIR)Lib\x64</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -92,7 +96,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalDependencies>d3d9.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d9.lib;d3dx9.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -113,6 +117,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -150,14 +155,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="aim\aim.h" />
     <ClInclude Include="csgo.hpp" />
+    <ClInclude Include="GUI\drawing.h" />
     <ClInclude Include="hook\fucntions.h" />
+    <ClInclude Include="Interface\bspflags.h" />
     <ClInclude Include="Interface\cclientclass.h" />
     <ClInclude Include="Interface\centity.h" />
+    <ClInclude Include="Interface\ienginevgui.h" />
+    <ClInclude Include="Interface\isurface.h" />
+    <ClInclude Include="utils\cmatrix.h" />
     <ClInclude Include="Interface\cutlvector.h" />
     <ClInclude Include="Interface\datatable.h" />
     <ClInclude Include="Interface\EntityInterface.h" />
+    <ClInclude Include="Interface\ienginetraceclient.h" />
+    <ClInclude Include="Interface\weaponsid.h" />
     <ClInclude Include="netvar\netvar.h" />
+    <ClInclude Include="utils\cvector.h" />
     <ClInclude Include="utils\framework.h" />
     <ClInclude Include="hook\hooks.h" />
     <ClInclude Include="imgui\imconfig.h" />
@@ -188,7 +202,9 @@
     <ClInclude Include="vis\vis.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="aim\aim.cpp" />
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="GUI\drawing.cpp" />
     <ClCompile Include="hook\hooks.cpp" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_demo.cpp" />
@@ -198,6 +214,7 @@
     <ClCompile Include="imgui\imgui_tables.cpp" />
     <ClCompile Include="imgui\imgui_widgets.cpp" />
     <ClCompile Include="hook\functions.cpp" />
+    <ClCompile Include="Interface\ivdebugoverlay.h" />
     <ClCompile Include="Interface\interfaces.cpp" />
     <ClCompile Include="minhook\buffer.c" />
     <ClCompile Include="GUI\gui.cpp" />

@@ -4,9 +4,9 @@
 
 #include <unordered_map>
 
-void SetupNetvars(FILE* file);
+void SetupNetvars();
 
-void Dump(const char* BaseClass, RecvTable* table, FILE* file, std::uint32_t offset = 0);
+void Dump(const char* BaseClass, RecvTable* table, std::uint32_t offset);
 
 inline std::unordered_map<std::uint32_t, std::uint32_t> netvars;
 

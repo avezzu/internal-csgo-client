@@ -17,5 +17,6 @@ namespace hooks
 
 	inline HRESULT (__thiscall* ResetOriginal)(void*, IDirect3DDevice9*, D3DPRESENT_PARAMETERS*) = nullptr;
 	HRESULT __stdcall Reset(IDirect3DDevice9* device, D3DPRESENT_PARAMETERS* params);
+
 }
 

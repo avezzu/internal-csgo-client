@@ -1,4 +1,5 @@
 #include "hooks.h"
+#include "../GUI/drawing.h"
 #include "../minhook/minhook.h"
 #include <stdexcept>
 
@@ -9,6 +10,7 @@
 
 #include "../Interface/interfaces.h"
 #include "../move/move.h"
+#include "../vis/vis.h"
 #include "fucntions.h"
 
 
@@ -34,11 +36,20 @@ void hooks::Setup()
 		throw std::runtime_error("Unable to hook CreateMove()");
 	}
 
-	/*
-	if (MH_CreateHook(VirtualFunction(interfaces::g_ClientMode, 44), &FN::DoPostScreenSpaceEffects, (void**)(&FN::OriginalDoPostScreenSpaceEffects)))
+	if (MH_CreateHook(VirtualFunction(interfaces::g_ClientMode, 44), &FN::DoPostScreenSpaceEffects, (void**)(&FN::DoPostScreenSpaceEffectsOriginal)))
 	{
 		throw std::runtime_error("Unable to hook DoPostScreenSpaceEffects()");
-	}*/
+	}
+
+	if (MH_CreateHook(VirtualFunction(interfaces::g_Client, 37), &FN::FrameStageNotify, (void**)(&FN::FrameStageNotifyOriginal)))
+	{
+		throw std::runtime_error("Unable to hook FrameStageNotify()");
+	}
+
+	if (MH_CreateHook(VirtualFunction(interfaces::panel, 41), &FN::PaintTraverse, (void**)(&FN::PaintTraverseOriginal)))
+	{
+		throw std::runtime_error("Unable to hook PaintTraverse()");
+	}
 
 	if (MH_EnableHook(MH_ALL_HOOKS))
 	{

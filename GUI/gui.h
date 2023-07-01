@@ -4,7 +4,7 @@
 
 //variable must be inline, since we define them multiple times, where the fucntion is defined only once
 namespace gui {
-	inline bool open = true;
+	inline bool open = false;
 	inline bool setup = false;
 	inline HWND window = nullptr;
 	inline WNDCLASSEX windowClass = {};

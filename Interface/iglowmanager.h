@@ -17,7 +17,7 @@ public:
         int nextFreeSlot;
 
         // entity the object belongs to
-        int* entity;
+        CEntity* entity;
 
         struct
         {

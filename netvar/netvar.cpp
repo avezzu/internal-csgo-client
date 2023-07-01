@@ -5,17 +5,17 @@
 #include <ctype.h>
 #include <format>
 
-void SetupNetvars(FILE* file)
+void SetupNetvars()
 {
 
 	for (auto clientClass = interfaces::g_Client->GetAllClasses(); clientClass; clientClass = clientClass->next)
 	{
 		if (clientClass->recvTable)
-			Dump(clientClass->networkName, clientClass->recvTable, file);
+			Dump(clientClass->networkName, clientClass->recvTable, 0);
 	}
 }
 
-void Dump(const char* BaseClass, RecvTable* table, FILE* file,std::uint32_t offset) 
+void Dump(const char* BaseClass, RecvTable* table, std::uint32_t offset) 
 {
 	for (int i = 0; i < table->propsCount; i++)
 	{
@@ -25,7 +25,7 @@ void Dump(const char* BaseClass, RecvTable* table, FILE* file,std::uint32_t offs
 		if (fnv::Hash(prop->varName) == fnv::HashConst("baseclass"))
 			continue;
 		if (prop->recvType == SendPropType::DATATABLE && prop->dataTable && prop->dataTable->tableName[0] == 'D')
-			Dump(BaseClass, prop->dataTable, file, offset + prop->offset);
+			Dump(BaseClass, prop->dataTable, offset + prop->offset);
 
 		const auto netvarName = std::format("{}->{}", BaseClass, prop->varName);
 
