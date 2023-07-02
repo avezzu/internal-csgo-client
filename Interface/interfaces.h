@@ -9,7 +9,6 @@
 #include <cstdint>
 #include <functional>
 #include <Windows.h>
-#include "../csgo.hpp"
 #include "isurface.h"
 #include "IGlobalVars.h"
 

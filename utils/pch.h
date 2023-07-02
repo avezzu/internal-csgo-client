@@ -4,8 +4,6 @@
 #include "framework.h"
 #include <stdexcept>
 #include <iostream>
-
-#include "../csgo.hpp"
 #include "../hook/hooks.h"
 #include "../vis/vis.h"
 #include "../aim/aim.h"

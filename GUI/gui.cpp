@@ -189,7 +189,7 @@ void gui::Render()
 		ImGui::Checkbox("TriggerBot", &aim::enableTriggerBot);
 		ImGui::Checkbox("AimBot", &aim::enableAimBot);
 		ImGui::Checkbox("SilentAimBot", &aim::enableSilentAimBot);
-		ImGui::Checkbox("recoilControl", &aim::enableRC);
+		ImGui::Checkbox("RecoilControl", &aim::enableRC);
 		ImGui::EndTabItem();
 	}
 

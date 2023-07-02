@@ -1,7 +1,9 @@
 #pragma once
 #include "getInterface.h"
+#include <vector>
+#include <cstdint>
 
-uintptr_t* scanner::PatternScan(const char* moduleName, const char* pattern) 
+uint8_t* scanner::PatternScan(const char* moduleName, const char* pattern)
 {
     static auto patternToByte = [](const char* pattern) noexcept -> const std::vector<std::int32_t>
     {
@@ -57,7 +59,7 @@ uintptr_t* scanner::PatternScan(const char* moduleName, const char* pattern)
         }
 
         if (found)
-            return (uintptr_t*)&scanBytes[i];
+            return &scanBytes[i];
     }
 
     return nullptr;

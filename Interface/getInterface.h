@@ -32,5 +32,5 @@ constexpr Return Call(void* vmt, const std::uint32_t index, Arguments ... args) 
 
 
 namespace scanner {
-    uintptr_t* PatternScan(const char* moduleName, const char* pattern);
+    uint8_t* PatternScan(const char* moduleName, const char* pattern);
 }

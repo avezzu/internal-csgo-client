@@ -1,5 +1,4 @@
 #include "move.h"
-#include "../csgo.hpp"
 #include "../Interface/interfaces.h"
 
 void move::enableBhop(UserCmd* cmd)

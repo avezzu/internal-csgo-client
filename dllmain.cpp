@@ -2,13 +2,7 @@
 
 DWORD WINAPI MainThread(HMODULE hModule) {
 
-    //AllocConsole();
-    FILE* file = nullptr;
-    //freopen_s(&file, "CONOUT$", "w", stdout);
-    //std::cout << "DLL injected!" << std::endl;
-
     SetupNetvars();
-
     try
     {
         gui::Setup();
@@ -26,20 +20,18 @@ DWORD WINAPI MainThread(HMODULE hModule) {
 
         goto UNLOAD;
     }
-        
+
     interfaces::engine->GetScreenSize(vis::screen_width, vis::screen_hight);
     while (!GetAsyncKeyState(VK_END))
     {
         if (vis::antiflash)vis::AntiFlash();
         if (vis::enableRadar)vis::EnableRadar();
-        if(aim::enableRC)aim::recoilControl();
+        if (aim::enableRC)aim::recoilControl();
         vis::changeFOV(vis::FOV);
     }
 
 UNLOAD:
-    if (file)
-        fclose(file);
-    //FreeConsole();
+
     hooks::Destroy();
     gui::Destroy();
     FreeLibraryAndExitThread(hModule, 0);

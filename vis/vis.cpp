@@ -1,6 +1,5 @@
 #include "vis.h"
 #include "../utils/cvector.h"
-#include "../csgo.hpp"
 #include "../Interface/interfaces.h"
 #include <iostream>
 #include "../GUI/drawing.h"

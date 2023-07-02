@@ -21,9 +21,6 @@
     <ClInclude Include="utils\pch.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="csgo.hpp">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="imgui\imconfig.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>

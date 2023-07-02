@@ -156,7 +156,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="aim\aim.h" />
-    <ClInclude Include="csgo.hpp" />
     <ClInclude Include="GUI\drawing.h" />
     <ClInclude Include="hook\fucntions.h" />
     <ClInclude Include="Interface\bspflags.h" />
