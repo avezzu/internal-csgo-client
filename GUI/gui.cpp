@@ -186,7 +186,6 @@ void gui::Render()
 	ImGui::BeginTabBar("tabs");
 
 	if (ImGui::BeginTabItem("Aim")) {
-		ImGui::Checkbox("LegitTriggerBot", &aim::enableLegitTriggerBot);
 		ImGui::Checkbox("TriggerBot", &aim::enableTriggerBot);
 		ImGui::Checkbox("AimBot", &aim::enableAimBot);
 		ImGui::Checkbox("SilentAimBot", &aim::enableSilentAimBot);
@@ -212,6 +211,24 @@ void gui::Render()
 	if (ImGui::BeginTabItem("Misc")) {
 		ImGui::Checkbox("Radar", &vis::enableRadar);
 		ImGui::Checkbox("SkinChanger", &vis::enableskinChanger);
+
+		if (ImGui::Button("Disable cheats"))
+		{
+			aim::enableTriggerBot = false;
+			aim::enableAimBot = false;
+			aim::enableSilentAimBot = false;
+			aim::enableRC = false;
+			move::bhop = false;
+			vis::antiflash = false;
+			vis::enableGlowESP = false;
+			vis::enableBoxESP = false;
+			vis::enableSkeletonESP = false;
+			vis::enableTraceLine = false;
+			vis::FOV = 90;
+			vis::enableRadar = false;
+			vis::enableskinChanger = false;
+		}
+
 		ImGui::EndTabItem();
 	}
 

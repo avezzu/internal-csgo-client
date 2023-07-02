@@ -4,9 +4,6 @@
 
 namespace aim {
 
-	extern bool enableLegitTriggerBot;
-	void legitTriggerBot(UserCmd* cmd);
-
 	extern bool enableTriggerBot;
 	void triggerBot(UserCmd* cmd);
 

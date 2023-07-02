@@ -13,14 +13,13 @@ bool __stdcall FN::CreateMove(float frameTime, UserCmd* cmd)
 		return result;
 	}
 
-	
 	if (result)
 		interfaces::engine->SetViewAngles(cmd->viewAngles);
 	
 	if (move::bhop)move::enableBhop(cmd);
-	if (aim::enableLegitTriggerBot)aim::legitTriggerBot(cmd);
 	if (aim::enableTriggerBot)aim::triggerBot(cmd);
 	if (aim::enableSilentAimBot)aim::SilentAimBot(cmd);
+	if (aim::enableAimBot)aim::AimBot();
 
 	return false;
 }

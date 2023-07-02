@@ -11,6 +11,7 @@
 #include <Windows.h>
 #include "../csgo.hpp"
 #include "isurface.h"
+#include "IGlobalVars.h"
 
 namespace interfaces
 {
@@ -27,4 +28,5 @@ namespace interfaces
 	extern IVPanel* panel;
 	extern ISurface* surface;
 	extern IEngineVGui* engineVGui;
+	extern IGlobalVars* globals;
 }

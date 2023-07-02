@@ -2,11 +2,10 @@
 
 DWORD WINAPI MainThread(HMODULE hModule) {
 
-    AllocConsole();
+    //AllocConsole();
     FILE* file = nullptr;
-    freopen_s(&file, "CONOUT$", "w", stdout);
-
-    std::cout << "DLL injected!" << std::endl;
+    //freopen_s(&file, "CONOUT$", "w", stdout);
+    //std::cout << "DLL injected!" << std::endl;
 
     SetupNetvars();
 
@@ -33,7 +32,6 @@ DWORD WINAPI MainThread(HMODULE hModule) {
     {
         if (vis::antiflash)vis::AntiFlash();
         if (vis::enableRadar)vis::EnableRadar();
-        if (aim::enableAimBot)aim::AimBot();
         if(aim::enableRC)aim::recoilControl();
         vis::changeFOV(vis::FOV);
     }
@@ -41,7 +39,7 @@ DWORD WINAPI MainThread(HMODULE hModule) {
 UNLOAD:
     if (file)
         fclose(file);
-    FreeConsole();
+    //FreeConsole();
     hooks::Destroy();
     gui::Destroy();
     FreeLibraryAndExitThread(hModule, 0);

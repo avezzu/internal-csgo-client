@@ -163,6 +163,7 @@
     <ClInclude Include="Interface\cclientclass.h" />
     <ClInclude Include="Interface\centity.h" />
     <ClInclude Include="Interface\ienginevgui.h" />
+    <ClInclude Include="Interface\IGlobalVars.h" />
     <ClInclude Include="Interface\isurface.h" />
     <ClInclude Include="utils\cmatrix.h" />
     <ClInclude Include="Interface\cutlvector.h" />
@@ -216,6 +217,7 @@
     <ClCompile Include="hook\functions.cpp" />
     <ClCompile Include="Interface\ivdebugoverlay.h" />
     <ClCompile Include="Interface\interfaces.cpp" />
+    <ClCompile Include="Interface\patternscanner.cpp" />
     <ClCompile Include="minhook\buffer.c" />
     <ClCompile Include="GUI\gui.cpp" />
     <ClCompile Include="minhook\hde\hde32.c" />

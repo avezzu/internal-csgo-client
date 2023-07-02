@@ -1,6 +1,7 @@
 #pragma once
 #include "../netvar/netvar.h"
 #include "../utils/cvector.h"
+#include "../utils/cmatrix.h"
 #include "cclientclass.h"
 #include "interfaces.h"
 #include <cstdint>
@@ -34,10 +35,32 @@ public:
 	NETVAR(GetFlags, "CBasePlayer->m_fFlags", std::int32_t);
 	NETVAR(Health, "CBasePlayer->m_iHealth", std::int32_t);
 	NETVAR(Team, "CBaseEntity->m_iTeamNum", std::int32_t);
+	NETVAR(ShotsFired, "CCSPlayer->m_iShotsFired", std::int32_t);
+	NETVAR(SpottedByMask, "CBaseEntity->m_bSpottedByMask", bool);
+	NETVAR(iItemIDHigh, "CBaseAttributableItem->m_iItemIDHigh", int);
+	NETVAR(FallbackPaintKit, "CBaseAttributableItem->m_nFallbackPaintKit", int);
+	NETVAR(FallbackWear, "CBaseAttributableItem->m_flFallbackWear", float);
+	NETVAR(DefaultFOV, "CBasePlayer->m_iDefaultFOV", int);
 
 
 	//call function form interface
 	//SRC: https://github.com/cazzwastaken/based/blob/master/src/valve/centity.h
+
+	constexpr bool SetupBones(CMatrix3x4* out, std::int32_t max, std::int32_t mask, float currentTime) noexcept
+	{
+		return Call<bool>(this + 0x4, 13, out, max, mask, currentTime);
+	}
+
+	DWORD* GetWeapons()
+	{
+		auto offset = netvars[fnv::HashConst("CBaseCombatCharacter->m_hMyWeapons")];
+		return (DWORD*)(this + offset);
+	}
+
+	constexpr bool IsDormant() noexcept
+	{
+		return Call<bool>(this + 0x8, 9);
+	}
 
 	constexpr CClientClass* GetClientClass() noexcept
 	{

@@ -150,6 +150,9 @@
     <ClInclude Include="Interface\ienginevgui.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="Interface\IGlobalVars.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -222,6 +225,9 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="Interface\ivdebugoverlay.h">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Interface\patternscanner.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

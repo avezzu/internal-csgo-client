@@ -9,5 +9,6 @@ IVDebugOverlay* interfaces::debugOverlay = GetInterface<IVDebugOverlay>("VDebugO
 IVPanel* interfaces::panel = GetInterface<IVPanel>("VGUI_Panel009", "vgui2.dll");
 ISurface* interfaces::surface = GetInterface<ISurface>("VGUI_Surface031", "vguimatsurface.dll");
 IEngineVGui* interfaces::engineVGui = GetInterface<IEngineVGui>("VEngineVGui001", "engine.dll");
+IGlobalVars* interfaces::globals = **(IGlobalVars***)((*(uintptr_t**)(g_Client))[11] + 10);
 //use patterscan for dwGlowObjectManager
 IGlowManager* interfaces::glow = (IGlowManager*)(interfaces::client_module + hazedumper::signatures::dwGlowObjectManager);

@@ -29,3 +29,8 @@ constexpr Return Call(void* vmt, const std::uint32_t index, Arguments ... args) 
     using Function = Return(__thiscall*)(void*, decltype(args)...);
     return (*static_cast<Function**>(vmt))[index](vmt, args...);
 }
+
+
+namespace scanner {
+    uintptr_t* PatternScan(const char* moduleName, const char* pattern);
+}

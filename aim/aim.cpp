@@ -26,42 +26,13 @@ void aim::triggerBot(UserCmd* cmd) {
 	if (!trace.entity || !trace.entity->IsPlayer())
 		return;
 
-	if (*(bool*)(trace.entity + hazedumper::signatures::m_bDormant))
+	if (trace.entity->IsDormant())
 		return;
 
 	if (!trace.entity->IsAlive() || trace.entity->GetTeam() == localPlayer->GetTeam())
 		return;
 
 	cmd->buttons |= IN_ATTACK;
-}
-
-
-bool aim::enableLegitTriggerBot = false;
-void aim::legitTriggerBot(UserCmd* cmd) {
-
-	auto index = interfaces::engine->GetLocalPlayerIndex();
-	auto localPlayer = interfaces::EntityList->GetClientEntity(index);
-
-	if (!localPlayer)
-		return;
-
-	if (!localPlayer->Health())
-		return;
-
-	auto crosshairID = *(int*)(localPlayer + hazedumper::netvars::m_iCrosshairId);
-	if (!crosshairID || crosshairID > 64)
-		return;
-
-
-	auto player = interfaces::EntityList->GetClientEntity(crosshairID);
-	if (*(bool*)(player + hazedumper::signatures::m_bDormant))
-		return;
-
-	if (!player->Health() || player->Team() == localPlayer->Team())
-		return;
-
-	cmd->buttons |= IN_ATTACK;
-
 }
 
 
@@ -76,7 +47,6 @@ void aim::AimBot()
 	
 	if (!GetAsyncKeyState(VK_MENU))
 		return;
-	
 
 	auto index = interfaces::engine->GetLocalPlayerIndex();
 	auto localPlayer = interfaces::EntityList->GetClientEntity(index);
@@ -84,8 +54,8 @@ void aim::AimBot()
 	if (!localPlayer)
 		return;
 
-	const auto localEyePostion = *(CVector*)(localPlayer + hazedumper::netvars::m_vecOrigin) +
-								 *(CVector*)(localPlayer + hazedumper::netvars::m_vecViewOffset);
+	CVector localEyePostion;
+	localPlayer->GetEyePosition(localEyePostion);
 
 	CVector aimPunch;
 	localPlayer->GetAimPunch(aimPunch);
@@ -109,23 +79,20 @@ void aim::AimBot()
 		if (player->Team() == localPlayer->Team())
 			continue;
 		
-		if (*(bool*)(player + hazedumper::signatures::m_bDormant))
+		if (player->IsDormant())
 			continue;
 
 		if (!player->Health())
 			continue;
 
-		
-		if (!*(bool*)(player + hazedumper::netvars::m_bSpottedByMask))
+		if (!player->SpottedByMask())
 			continue;
 		
-
-		auto boneMatrix = *(uintptr_t*)(player + hazedumper::netvars::m_dwBoneMatrix);
-		auto headPos = CVector{
-			*(float*)(boneMatrix + 0x30 * 8 + 0x0C),
-			*(float*)(boneMatrix + 0x30 * 8 + 0x1C),
-			*(float*)(boneMatrix + 0x30 * 8 + 0x2C)
-		};
+		CMatrix3x4 bone_matrix[128];
+		if (!player->SetupBones(bone_matrix, 128, 0x7FF00, interfaces::globals->currentTime))
+			continue;
+		
+		auto headPos = bone_matrix[8].Origin();
 
 		auto angle = CalculateAngle(localEyePostion, headPos, viewAngles + aimPunch);
 		auto fov = std::hypot(angle.x, angle.y);
@@ -157,14 +124,11 @@ void aim::SilentAimBot(UserCmd* cmd)
 	if (!localPlayer)
 		return;
 
-	const auto localEyePostion = *(CVector*)(localPlayer + hazedumper::netvars::m_vecOrigin) +
-		*(CVector*)(localPlayer + hazedumper::netvars::m_vecViewOffset);
+	CVector localEyePostion;
+	localPlayer->GetEyePosition(localEyePostion);
 
 	CVector aimPunch;
 	localPlayer->GetAimPunch(aimPunch);
-
-	CVector viewAngles;
-	interfaces::engine->GetViewAngles(viewAngles);
 
 	auto bestFov = 150.f;
 	auto bestAngle = CVector{};
@@ -182,25 +146,23 @@ void aim::SilentAimBot(UserCmd* cmd)
 		if (player->Team() == localPlayer->Team())
 			continue;
 
-		if (*(bool*)(player + hazedumper::signatures::m_bDormant))
+		if (player->IsDormant())
 			continue;
 
-		if (!player->Health())
-			continue;
-
-
-		if (!*(bool*)(player + hazedumper::netvars::m_bSpottedByMask))
+		if (!player->IsAlive())
 			continue;
 
 
-		auto boneMatrix = *(uintptr_t*)(player + hazedumper::netvars::m_dwBoneMatrix);
-		auto headPos = CVector{
-			*(float*)(boneMatrix + 0x30 * 8 + 0x0C),
-			*(float*)(boneMatrix + 0x30 * 8 + 0x1C),
-			*(float*)(boneMatrix + 0x30 * 8 + 0x2C)
-		};
+		if (!player->SpottedByMask())
+			continue;
 
-		auto angle = CalculateAngle(localEyePostion, headPos, viewAngles + aimPunch);
+		CMatrix3x4 bone_matrix[128];
+		if (!player->SetupBones(bone_matrix, 128, 0x7FF00, interfaces::globals->currentTime))
+			continue;
+
+		auto headPos = bone_matrix[8].Origin();
+
+		auto angle = CalculateAngle(localEyePostion, headPos, cmd->viewAngles + aimPunch);
 		auto fov = std::hypot(angle.x, angle.y);
 
 		if (fov < bestFov)
@@ -227,7 +189,8 @@ void aim::recoilControl()
 	if (!localPlayer)
 		return;
 
-	int shotsFired = *(int*)(localPlayer + hazedumper::netvars::m_iShotsFired);
+	int shotsFired = localPlayer->ShotsFired();
+
 	CVector viewAngles;
 	interfaces::engine->GetViewAngles(viewAngles);
 
