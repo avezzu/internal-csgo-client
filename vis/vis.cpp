@@ -93,6 +93,9 @@ void vis::TraceLine()
 
 	for (int i = 1; i < 64; i++)
 	{
+		
+		if (!localPlayer->IsAlive())
+			continue;
 		CMatrix4x4 matrix = interfaces::engine->WorldToScreenMatrix();
 		auto player = interfaces::EntityList->GetClientEntity(i);
 		if (!player)
@@ -133,6 +136,8 @@ void vis::BoxESP()
 
 	for (int i = 1; i < 64; i++)
 	{
+		if (!localPlayer->IsAlive())
+			continue;
 		CMatrix4x4 matrix = interfaces::engine->WorldToScreenMatrix();
 		auto player = interfaces::EntityList->GetClientEntity(i);
 		if (!player)
@@ -181,10 +186,7 @@ void vis::BoxESP()
 }
 
 
-
-
 bool vis::enableSkeletonESP = false;
-
 void vis::SkeletonESP()
 {
 	if (!interfaces::engine->IsInGame())
@@ -195,10 +197,12 @@ void vis::SkeletonESP()
 	if (!localPlayer)
 		return;
 
-	for (int i = 1; i < 64; i++)
+
+	for (int j = 0; j < 64; j++)
 	{
-		CMatrix4x4 matrix = interfaces::engine->WorldToScreenMatrix();
-		auto player = interfaces::EntityList->GetClientEntity(i);
+		if (!localPlayer->IsAlive())
+			continue;
+		auto player = interfaces::EntityList->GetClientEntity(j);
 		if (!player)
 			continue;
 		if (player == localPlayer)
@@ -207,74 +211,34 @@ void vis::SkeletonESP()
 			continue;
 		if (player->Health() <= 0 || player->Team() == localPlayer->Team())
 			continue;
-
-
-		std::vector<std::pair<int, int>> bones;
-		if (localPlayer->Team() == 3)
-		{
-			bones = {
-
-			std::pair<int, int>(79, 77),
-			std::pair<int, int>(5, 79),
-			std::pair<int, int>(72, 5),
-			std::pair<int, int>(72, 70),
-			std::pair<int, int>(5, 7),
-			std::pair<int, int>(7, 41),
-			std::pair<int, int>(41, 42),
-			std::pair<int, int>(42, 43),
-			std::pair<int, int>(7, 11),
-			std::pair<int, int>(11, 12),
-			std::pair<int, int>(12, 13),
-			std::pair<int, int>(7, 8)
-			};
-		}
-		else 
-		{
-			bones = {
-				std::pair<int, int>(76, 78),
-				std::pair<int, int>(79, 78),
-				std::pair<int, int>(79, 5),
-				std::pair<int, int>(81, 5),
-				std::pair<int, int>(82, 81),
-				std::pair<int, int>(83, 82),
-				std::pair<int, int>(5, 7),
-				std::pair<int, int>(7, 41),
-				std::pair<int, int>(41, 42),
-				std::pair<int, int>(42, 43),
-				std::pair<int, int>(7, 11),
-				std::pair<int, int>(11, 12),
-				std::pair<int, int>(12, 13),
-				std::pair<int, int>(7, 8)
-			};
-		}
 		
-
-		std::vector<std::pair<CVector, CVector>> points;
+		auto studio = interfaces::modelInfo->GetStudioModel(player->GetModel());
+		if (!studio)
+			return;
 
 		CMatrix3x4 bone_matrix[128];
 		if (!player->SetupBones(bone_matrix, 128, 0x7FF00, interfaces::globals->currentTime))
 			continue;
 
-		for (int i = 0; i < bones.size(); i++)
+		for (int i = 0; i < studio->numBones; i++)
 		{
-			CVector f;
-			CVector s;
-			if (interfaces::debugOverlay->ScreenPosition(bone_matrix[bones[i].first].Origin(), f))
-				goto jump;
-			if (interfaces::debugOverlay->ScreenPosition(bone_matrix[bones[i].second].Origin(), s))
-				goto jump;
-			points.push_back(std::pair<CVector, CVector>(f, s));
-		}
+			auto bone = studio->GetBone(i);
+			if (bone && (bone->flags & 0x100) && (bone->parent != -1))
+			{
+				
+				CVector bonePos = bone_matrix[i].Origin();
+				CVector parentPos = bone_matrix[bone->parent].Origin();
+				CVector boneScreen, parentScreen;
 
-		for (auto sp : points)
-		{
-			interfaces::surface->DrawSetColor(2, 252, 236);
-			interfaces::surface->DrawLine(sp.first.x, sp.first.y, sp.second.x, sp.second.y);
+				if (!interfaces::debugOverlay->ScreenPosition(bonePos, boneScreen) && !interfaces::debugOverlay->ScreenPosition(parentPos, parentScreen))
+				{
+					interfaces::surface->DrawSetColor(2, 252, 236);
+					interfaces::surface->DrawLine(boneScreen.x, boneScreen.y, parentScreen.x, parentScreen.y);
+				}
+			}
 		}
-
-	jump:
-		continue;
 	}
+	
 }
 
 

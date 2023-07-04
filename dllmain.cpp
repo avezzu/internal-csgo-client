@@ -2,6 +2,7 @@
 
 DWORD WINAPI MainThread(HMODULE hModule) {
 
+ 
     SetupNetvars();
     try
     {

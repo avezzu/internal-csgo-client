@@ -26,7 +26,7 @@ public:
 	}
 };
 
-
+class CModel;
 class CEntity
 {
 public:
@@ -46,6 +46,7 @@ public:
 	//call function form interface
 	//SRC: https://github.com/cazzwastaken/based/blob/master/src/valve/centity.h
 
+	
 	constexpr bool SetupBones(CMatrix3x4* out, std::int32_t max, std::int32_t mask, float currentTime) noexcept
 	{
 		return Call<bool>(this + 0x4, 13, out, max, mask, currentTime);
@@ -120,6 +121,11 @@ public:
 	constexpr int GetWeaponType() 
 	{
 		return Call<int>(this, 455);
+	}
+
+	constexpr CModel* GetModel()
+	{
+		return Call<CModel*>(this + 0x4, 8);
 	}
 
 };

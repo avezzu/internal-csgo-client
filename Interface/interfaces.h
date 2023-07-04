@@ -10,6 +10,7 @@
 #include <functional>
 #include <Windows.h>
 #include "isurface.h"
+#include "ivmodelinfo.h"
 #include "IGlobalVars.h"
 
 namespace interfaces
@@ -28,4 +29,5 @@ namespace interfaces
 	extern ISurface* surface;
 	extern IEngineVGui* engineVGui;
 	extern IGlobalVars* globals;
+	extern IVModelInfo* modelInfo;
 }

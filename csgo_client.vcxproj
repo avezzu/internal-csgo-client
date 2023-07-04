@@ -164,6 +164,7 @@
     <ClInclude Include="Interface\ienginevgui.h" />
     <ClInclude Include="Interface\IGlobalVars.h" />
     <ClInclude Include="Interface\isurface.h" />
+    <ClInclude Include="Interface\ivmodelinfo.h" />
     <ClInclude Include="utils\cmatrix.h" />
     <ClInclude Include="Interface\cutlvector.h" />
     <ClInclude Include="Interface\datatable.h" />

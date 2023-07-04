@@ -85,8 +85,6 @@ void aim::AimBot()
 		if (!player->Health())
 			continue;
 
-		if (!player->SpottedByMask())
-			continue;
 		
 		CMatrix3x4 bone_matrix[128];
 		if (!player->SetupBones(bone_matrix, 128, 0x7FF00, interfaces::globals->currentTime))
