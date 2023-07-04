@@ -47,7 +47,7 @@ void vis::GlowESP()
 	auto index = interfaces::engine->GetLocalPlayerIndex();
 	auto localPlayer = interfaces::EntityList->GetClientEntity(index);
 
-	if (localPlayer && interfaces::engine->IsInGame())
+	if (localPlayer && interfaces::engine->IsInGame() && localPlayer->IsAlive())
 	{
 		for (int i = 0; i < interfaces::glow->glowObjects.size; i++)
 		{
@@ -104,7 +104,7 @@ void vis::TraceLine()
 			continue;
 		if (!player->IsPlayer())
 			continue;
-		if (player->Health() <= 0 || player->Team() == localPlayer->Team())
+		if (player->Health() <= 0 || player->Team() == localPlayer->Team() || player->IsDormant())
 			continue;
 
 		Vec2 pos;
@@ -146,7 +146,7 @@ void vis::BoxESP()
 			continue;
 		if (!player->IsPlayer())
 			continue;
-		if (player->Health() <= 0 || player->Team() == localPlayer->Team())
+		if (player->Health() <= 0 || player->Team() == localPlayer->Team() || player->IsDormant())
 			continue;
 
 		Vec2 top;
@@ -209,7 +209,7 @@ void vis::SkeletonESP()
 			continue;
 		if (!player->IsPlayer())
 			continue;
-		if (player->Health() <= 0 || player->Team() == localPlayer->Team())
+		if (player->Health() <= 0 || player->Team() == localPlayer->Team() || player->IsDormant())
 			continue;
 		
 		auto studio = interfaces::modelInfo->GetStudioModel(player->GetModel());
