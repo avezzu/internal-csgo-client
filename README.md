@@ -15,7 +15,8 @@ This is an undetected internal CSGO client that incorporates the following cheat
 - [x] AntiFlash
 - [x] GlowESP
 - [x] BoxESP
-- [x] SkeletonESP 
+- [x] SkeletonESP
+- [x] Chams
 - [x] SnapLine
 - [x] FOV Changer
 
