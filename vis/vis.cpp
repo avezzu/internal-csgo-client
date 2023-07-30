@@ -10,6 +10,7 @@
 int vis::screen_width = 0;
 int vis::screen_hight = 0;
 
+
 bool vis::antiflash = false;
 void vis::AntiFlash() 
 {	
@@ -274,6 +275,10 @@ void vis::skinChanger()
 				case CClientClass::CWeaponAWP:
 					changeSkin(pWeapon, 344);
 					break;
+				case CClientClass::CWeaponM4A1:
+					changeSkin(pWeapon, 16);
+				case CClientClass::CDEagle:
+					changeSkin(pWeapon, 37);
 				}
 				
 			}
@@ -302,3 +307,6 @@ void vis::changeFOV(int FOV)
 
 	oldFOV = FOV;
 }
+
+
+bool vis::enableChams = false;

@@ -182,7 +182,8 @@ void gui::Render()
 	ImGui_ImplWin32_NewFrame();
 	ImGui::NewFrame();
 	
-	ImGui::Begin("Menu", &open);
+	ImGui::SetWindowSize({400, 600});
+	ImGui::Begin("Menu", &open, ImGuiWindowFlags_NoResize);
 	ImGui::BeginTabBar("tabs");
 
 	if (ImGui::BeginTabItem("Aim")) {
@@ -203,6 +204,7 @@ void gui::Render()
 		ImGui::Checkbox("GlowESP", &vis::enableGlowESP);
 		ImGui::Checkbox("BoxESP", &vis::enableBoxESP);
 		ImGui::Checkbox("SkeletonESP", &vis::enableSkeletonESP);
+		ImGui::Checkbox("Chams", &vis::enableChams);
 		ImGui::Checkbox("SnapLine", &vis::enableTraceLine);
 		ImGui::SliderInt("FOV", &vis::FOV, -180, 180);
 		ImGui::EndTabItem();

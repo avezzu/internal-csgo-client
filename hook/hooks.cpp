@@ -51,6 +51,11 @@ void hooks::Setup()
 		throw std::runtime_error("Unable to hook PaintTraverse()");
 	}
 
+	if (MH_CreateHook(VirtualFunction(interfaces::studioRender, 29), &FN::DrawModel, (void**)(&FN::DrawModelOriginal)))
+	{
+		throw std::runtime_error("Unable to hook DrawModel()");
+	}
+
 	if (MH_EnableHook(MH_ALL_HOOKS))
 	{
 		throw std::runtime_error("Unable to enable hooks");

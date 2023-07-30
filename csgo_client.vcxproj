@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\MudBlazor.ThemeManager.1.0.8\build\MudBlazor.ThemeManager.props" Condition="Exists('packages\MudBlazor.ThemeManager.1.0.8\build\MudBlazor.ThemeManager.props')" />
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -163,6 +164,8 @@
     <ClInclude Include="Interface\centity.h" />
     <ClInclude Include="Interface\ienginevgui.h" />
     <ClInclude Include="Interface\IGlobalVars.h" />
+    <ClInclude Include="Interface\imaterialsystem.h" />
+    <ClInclude Include="Interface\istudiorender.h" />
     <ClInclude Include="Interface\isurface.h" />
     <ClInclude Include="Interface\ivmodelinfo.h" />
     <ClInclude Include="utils\cmatrix.h" />
@@ -236,8 +239,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
-  </ImportGroup>
+  <ImportGroup Label="ExtensionTargets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Dieses Projekt verweist auf mindestens ein NuGet-Paket, das auf diesem Computer fehlt. Verwenden Sie die Wiederherstellung von NuGet-Paketen, um die fehlenden Dateien herunterzuladen. Weitere Informationen finden Sie unter "http://go.microsoft.com/fwlink/?LinkID=322105". Die fehlende Datei ist "{0}".</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\MudBlazor.ThemeManager.1.0.8\build\MudBlazor.ThemeManager.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\MudBlazor.ThemeManager.1.0.8\build\MudBlazor.ThemeManager.props'))" />
+  </Target>
 </Project>

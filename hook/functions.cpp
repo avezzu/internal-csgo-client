@@ -31,7 +31,6 @@ void __stdcall FN::DoPostScreenSpaceEffects(const void* viewSetup)
 }
 
 
-
 void __stdcall FN::FrameStageNotify(ClientFrameStage_t curStage)
 {
 	FrameStageNotifyOriginal(interfaces::g_Client, curStage);
@@ -52,4 +51,45 @@ void __stdcall FN::PaintTraverse(uintptr_t panel, bool forceRepaint, bool allowF
 	
 	PaintTraverseOriginal(interfaces::panel, panel, forceRepaint, allowForce);
 }
+
+
+void __stdcall FN::DrawModel(void* result, const CDrawModelInfo& info, CMatrix3x4* bones, float* flexWeights, float* flexDelayedWeights, const CVector& modelOrigin, const std::int32_t flags)
+{
+	
+	if (!interfaces::engine->IsInGame())
+	{
+		DrawModelOriginal(interfaces::studioRender, result, info, bones, flexWeights, flexDelayedWeights, modelOrigin, flags);
+		return;
+	}
+	
+	auto index = interfaces::engine->GetLocalPlayerIndex();
+	auto localPlayer = (interfaces::EntityList->GetClientEntity(index));
+	if (localPlayer && info.renderable && vis::enableChams)
+	{
+		auto entity = info.renderable->GetIClientUnknown()->GetBaseEntity();
+		if (entity && entity->IsPlayer() && entity->Team() != localPlayer->Team())
+		{
+			static IMaterial* meterial = interfaces::materialSystem->FindMaterial("debug/debugambientcube");
+
+			float hidden[3] = { 0.0117f, 0.f, 0.3882f };
+			float visible[3] = { 0.4588f, 0.96078f, 0.258823f };
+
+			interfaces::studioRender->SetAlphaModulation(1.f);
+			meterial->SetMaterialVarFlag(IMaterial::IGNOREZ, true);
+			interfaces::studioRender->SetColorModulation(visible);
+			interfaces::studioRender->ForcedMaterialOverride(meterial);
+			DrawModelOriginal(interfaces::studioRender, result, info, bones, flexWeights, flexDelayedWeights, modelOrigin, flags);
+
+			meterial->SetMaterialVarFlag(IMaterial::IGNOREZ, false);
+			interfaces::studioRender->SetColorModulation(hidden);
+			interfaces::studioRender->ForcedMaterialOverride(meterial);
+			DrawModelOriginal(interfaces::studioRender, result, info, bones, flexWeights, flexDelayedWeights, modelOrigin, flags);
+
+			return interfaces::studioRender->ForcedMaterialOverride(nullptr);
+		}
+	}
+
+	DrawModelOriginal(interfaces::studioRender, result, info, bones, flexWeights, flexDelayedWeights, modelOrigin, flags);
+}
+
 

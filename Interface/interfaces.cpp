@@ -11,4 +11,6 @@ ISurface* interfaces::surface = GetInterface<ISurface>("VGUI_Surface031", "vguim
 IEngineVGui* interfaces::engineVGui = GetInterface<IEngineVGui>("VEngineVGui001", "engine.dll");
 IGlobalVars* interfaces::globals = **(IGlobalVars***)((*(uintptr_t**)(g_Client))[11] + 10);
 IVModelInfo* interfaces::modelInfo = GetInterface<IVModelInfo>("VModelInfoClient004", "engine.dll");
+IStudioRender* interfaces::studioRender = GetInterface<IStudioRender>("VStudioRender026", "studiorender.dll");
+IMaterialSystem* interfaces::materialSystem = GetInterface<IMaterialSystem>("VMaterialSystem080", "materialsystem.dll");
 IGlowManager* interfaces::glow = (IGlowManager*)(*(uint8_t**)(scanner::PatternScan("client.dll", "A1 ? ? ? ? A8 01 75 4B") + 1) + 4);

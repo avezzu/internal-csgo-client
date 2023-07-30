@@ -24,10 +24,13 @@ namespace vis {
 	extern bool enableSkeletonESP;
 	void SkeletonESP();
 
+	extern bool enableChams;
 
 	extern int FOV;
 	extern int oldFOV;
 	void changeFOV(int FOV);
+
+	
 
 	extern int screen_width;
 	extern int screen_hight;

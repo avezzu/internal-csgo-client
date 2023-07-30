@@ -92,8 +92,16 @@ void aim::AimBot()
 		
 		auto headPos = bone_matrix[8].Origin();
 
+	
+		CTrace trace;
+		interfaces::engineTrace->TraceRay({localEyePostion, bone_matrix[8].Origin()}, 0x46004009, localPlayer, trace);
+		if (!trace.entity || trace.fraction < 0.97f)
+			continue;
+
+
 		auto angle = CalculateAngle(localEyePostion, headPos, viewAngles + aimPunch);
 		auto fov = std::hypot(angle.x, angle.y);
+
 
 		if (fov < bestFov)
 		{
@@ -177,7 +185,6 @@ void aim::SilentAimBot(UserCmd* cmd)
 
 
 bool aim::enableRC = false;
-
 CVector aim::oldPunch{0,0,0};
 void aim::recoilControl()
 {

@@ -153,6 +153,12 @@
     <ClInclude Include="Interface\ivmodelinfo.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="Interface\istudiorender.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="Interface\imaterialsystem.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -233,5 +239,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

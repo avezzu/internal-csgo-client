@@ -12,6 +12,8 @@
 #include "isurface.h"
 #include "ivmodelinfo.h"
 #include "IGlobalVars.h"
+#include "istudiorender.h"
+#include "imaterialsystem.h"
 
 namespace interfaces
 {
@@ -30,4 +32,6 @@ namespace interfaces
 	extern IEngineVGui* engineVGui;
 	extern IGlobalVars* globals;
 	extern IVModelInfo* modelInfo;
+	extern IStudioRender* studioRender;
+	extern IMaterialSystem* materialSystem;
 }

@@ -2,6 +2,7 @@
 #include "../Interface/usercmd.h"
 #include "../utils/cmatrix.h"
 #include "../Interface/isurface.h"
+#include "../Interface/istudiorender.h"
 
 
 namespace FN
@@ -29,4 +30,7 @@ namespace FN
     
     inline void(__thiscall* PaintTraverseOriginal)(void*, uintptr_t, bool, bool) = nullptr;
     void __stdcall PaintTraverse(uintptr_t panel, bool forceRepaint, bool allowForce);
+
+    inline void(__thiscall* DrawModelOriginal)(void*, void*, const CDrawModelInfo&, CMatrix3x4*, float*, float*, const CVector&, const std::int32_t) = nullptr;
+    void __stdcall DrawModel(void* result, const CDrawModelInfo& info, CMatrix3x4* bones, float* flexWeights, float* flexDelayedWeights, const CVector& modelOrigin, const std::int32_t flags);
 }
