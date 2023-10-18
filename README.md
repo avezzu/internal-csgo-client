@@ -1,6 +1,6 @@
 # Internal CS:GO-Client
 
-This is an outdated internal CS:GO client that incorporates the following cheats:
+This is an **outdated** internal CS:GO client that incorporates the following cheats:
 
 ### Aim
 - [x] TriggerBot
