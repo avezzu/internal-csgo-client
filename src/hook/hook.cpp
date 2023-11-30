@@ -82,17 +82,9 @@ long __stdcall hook::EndScene(IDirect3DDevice9 *device)
 		dx9::SetupMenu(device);
 	}
 
-	ImGui_ImplDX9_NewFrame();
-	ImGui_ImplWin32_NewFrame();
-	ImGui::NewFrame();
 
 	gui::render();
-	gui::watermark();
 	
-	ImGui::EndFrame();
-	ImGui::Render();
-	ImGui_ImplDX9_RenderDrawData(ImGui::GetDrawData());
-
 	return result;
 }
 

@@ -267,7 +267,6 @@ void vis::skinChanger()
 		for (int i = 0; i < 8; i++) 
 		{
 			DWORD* cWep = localPlayer->GetWeapons();
-
 			if (!cWep)continue;
 
 			auto pWeapon = interfaces::Get().EntityList->GetClientEntityFromHandle(cWep[i]);

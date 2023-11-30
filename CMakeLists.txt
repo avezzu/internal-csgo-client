@@ -11,7 +11,7 @@ include_directories("C:\\Program Files (x86)\\Microsoft DirectX SDK (June 2010)\
 file(GLOB_RECURSE SOURCES "dx9/*.cpp" "dx9/*.c" "imgui/*.cpp" "src/*.cpp" "sdk/*.cpp" "cheats/*.cpp")
 
 find_library(D3D9_LIBRARY 
-            NAMES d3d9.lib dxgi.lib d3dcompiler.lib
+            NAMES d3d9.lib 
             PATHS "C:\\Program Files (x86)\\Microsoft DirectX SDK (June 2010)\\Lib\\x86")
 
 

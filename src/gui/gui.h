@@ -7,5 +7,4 @@ namespace gui{
     void render();
     void renderGUI();
     void shotdown();
-    void watermark();
 }

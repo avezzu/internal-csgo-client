@@ -48,6 +48,11 @@ public:
 		vt::Call<void>(this, 19, x1, y1, x2, y2);
 	}
 
+	void DrawSetTextColor(int r, int g, int b, int a = 255) noexcept
+	{
+		vt::Call<void>(this, 25, r, g, b, a);
+	}
+
 	void DrawSetTextPos(int x, int y)
 	{
 		vt::Call<void>(this, 26, x, y);
